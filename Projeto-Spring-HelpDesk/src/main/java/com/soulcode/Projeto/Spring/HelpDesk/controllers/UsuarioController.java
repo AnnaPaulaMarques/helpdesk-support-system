@@ -3,52 +3,48 @@ package com.soulcode.Projeto.Spring.HelpDesk.controllers;
 import com.soulcode.Projeto.Spring.HelpDesk.models.UsuarioModel;
 import com.soulcode.Projeto.Spring.HelpDesk.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 
-//todo erro nos metodos :(
+//todo ainda falta tratar alguns erros
 
 @RestController
 @RequestMapping("/usuarios")
 public class UsuarioController {
+
     @Autowired
     private UsuarioService usuarioService;
-    public UsuarioController(UsuarioService usuarioService) {
-        this.usuarioService = usuarioService;
-    }
 
-    @GetMapping("/usuario")
-    public String mostrarFormulario(Model model) {
-        model.addAttribute("usuario", new UsuarioModel());
-        return "usuarioForm";
-    }
 
     @PostMapping()
-    public String adicionarUsuario(@ModelAttribute UsuarioModel usuario,Model model) {
-        usuarioService.adicionarUsuario(usuario.getNome(), usuario.getSenha(), usuario.getIdUsuario(), usuario.getEmail());
-        return "Usuário adicionado com sucesso!!!" + usuario.getNome();
+    public UsuarioModel adicionarUsuario(@RequestBody UsuarioModel usuario) {
+        return usuarioService.adicionarUsuario(usuario);
+    }
+
+    @GetMapping("/todos")
+    public List<UsuarioModel> buscarUsuarioTodos() {
+        return usuarioService.buscarUsuarioTodos();
     }
 
     @GetMapping("/buscar/{id}")
-    public String buscarUsuario(Model model, @PathVariable Long id) {
-        String resultado = usuarioService.buscarUsuario(id);
-        model.addAttribute("resultado", resultado);
-        if(resultado == null){
-            return "Usuário não encontrado";
+    public String buscarUsuarioId(@PathVariable Long id) {
+        UsuarioModel usuario = usuarioService.buscarUsuarioId(id);
+        if (usuario == null) {
+            return "Tecnico não encontrado";
         }
-        return resultado.toString();
+        return usuario.toString();
     }
 
+
     @PostMapping("/atualizar")
-    public String atualizarUsuario(@ModelAttribute UsuarioModel usuario) {
-        usuarioService.atualizarUsuario(usuario.getIdUsuario(), usuario.getNome(), usuario.getSenha(), usuario.getEmail());
-        return "Usuario atualizado com sucesso!!!";
+    public UsuarioModel atualizarUsuario(@RequestBody UsuarioModel usuarioModel) {
+        return usuarioService.atualizarUsuario(usuarioModel);
     }
 
     @DeleteMapping("/{id}")
     public String deletarUsuario(@PathVariable Long id) {
-        usuarioService.deletarUsuario(id);
-        return "Usuario deletado";
+        return usuarioService.deleteId(id);
     }
+
 }

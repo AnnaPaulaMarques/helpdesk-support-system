@@ -1,62 +1,46 @@
-## Estrutura e README do Projeto "Helpdesk Support System"
-
-### Helpdesk Support System 💻 🖥️
+# Helpdesk Support System 💻 🖥️
 
 O Helpdesk Support System foi desenvolvido para simplificar o gerenciamento de suporte técnico em Informática. É uma aplicação construída utilizando JavaSpring, permitindo aos usuários solicitar atendimento técnico em questões relacionadas à informática. Os chamados são registrados, atribuídos a técnicos e seu status é atualizado ao longo do processo de atendimento. Após a resolução do problema, o chamado é encerrado automaticamente.
 
-### Funcionalidades Principais
+## Funcionalidades Principais
 
-- **Login de usuários e técnicos**: Permite que usuários e técnicos façam login na plataforma.
+- **Criação de chamados**: Usuários podem criar novos chamados informando os detalhes do problema ou solicitação.
+- **Atribuição de chamados**: Técnicos podem visualizar os chamados disponíveis para atendimento e atribuir a si mesmos para resolução.
+- **Atualização de status dos chamados**: Técnicos podem atualizar o status dos chamados conforme necessário durante o atendimento.
+- **Monitoramento do tempo de resposta do chamado**: A aplicação monitora o tempo de resposta de cada chamado para garantir um atendimento eficiente. Esta funcionalidade ainda está em desenvolvimento como uma melhoria futura.
+- **Operações de CRUD para chamados**: As operações de adicionar, atualizar, buscar por ID, buscar todos e deletar chamados também estão disponíveis para usuários e técnicos.
 
-- **Visualização de chamados disponíveis e atribuídos para técnicos**: Técnicos podem visualizar os chamados disponíveis para atendimento e aqueles que já foram atribuídos a eles.
+## Pacotes e Funcionalidades
 
-- **Criação de novos chamados por parte dos usuários**: Usuários podem criar novos chamados informando os detalhes do problema ou solicitação.
+- **Pacote "controllers"**: Contém classes responsáveis por receber requisições HTTP e enviar respostas adequadas. Fornece endpoints para adicionar, atualizar, buscar e deletar chamados, acessíveis tanto para usuários quanto para técnicos.
+- **Pacote "models"**: Define as classes que representam as entidades do sistema, como Chamado e Técnico.
+- **Pacote "service"**: Contém classes que implementam a lógica de negócios do sistema, como adicionar, atualizar, buscar e deletar entidades.
+- **Pacote "repositories"**: Define interfaces que estendem JpaRepository para interagir com o banco de dados MySQL usando JPA.
 
-- **Atualização de status dos chamados pelos técnicos**: Técnicos podem atualizar o status dos chamados conforme necessário durante o atendimento.
+## Como Usar
 
-- **Monitoramento do tempo de resposta do chamado**: A aplicação monitora o tempo de resposta de cada chamado para garantir um atendimento eficiente.
+1. **Instalação do Projeto**: Clone ou baixe o projeto do repositório.
+2. **Configuração do Banco de Dados**: Configure as propriedades do banco de dados no arquivo `application.properties` para se conectar ao seu banco MySQL.
+3. **Execução do Projeto**: Execute o projeto em sua IDE preferida (por exemplo, IntelliJ IDEA) ou usando o Maven.
+4. **Teste das Funcionalidades**: Utilize uma ferramenta como o Postman para enviar requisições HTTP aos endpoints fornecidos pelas classes do pacote "controllers".
 
-- **Pesquisa de satisfação após o atendimento**: Após a resolução do chamado, os usuários podem fornecer feedback sobre a qualidade do atendimento recebido.
+### Exemplos de Requisições
 
-### Telas e Funcionalidades
+- **Adicionar um Chamado**: Envie uma requisição POST para `/chamados` com os dados do chamado no corpo da requisição.
+- **Atualizar um Chamado**: Envie uma requisição POST para `/chamados/atualizar` com os dados atualizados do chamado no corpo da requisição.
+- **Buscar um Chamado por ID**: Envie uma requisição GET para `/chamados/{id}` para buscar um chamado específico pelo seu ID.
+- **Buscar Todos os Chamados**: Envie uma requisição GET para `/chamados/todos` para obter uma lista de todos os chamados.
+- **Deletar um Chamado por ID**: Envie uma requisição DELETE para `/chamados/{id}` para deletar um chamado específico pelo seu ID.
 
-- **Tela Inicial**: Apresenta links para entrar como usuário ou técnico, além de oferecer sugestões e FAQs.
+## Tecnologias Utilizadas
 
-- **Tela do Usuário**: Permite visualizar chamados criados, criar novos chamados e acompanhar o tempo de resposta esperado.
+- Java Spring Boot
+- MySQL
+- Spring Data JPA
+- Maven
 
-- **Tela do Técnico**: Permite visualizar chamados disponíveis e atribuídos, atualizar status e monitorar o tempo de resposta.
+## Contribuição
 
-### Como Usar
+Sinta-se à vontade para contribuir com melhorias para o projeto. Basta fazer um fork do repositório, implementar as mudanças desejadas e enviar um pull request.
 
-**Para Usuários:**
-1. Faça login na plataforma usando suas credenciais.
-2. Na tela inicial, escolha entre visualizar chamados disponíveis ou criar um novo chamado.
-3. Para criar um novo chamado, preencha os detalhes do problema ou solicitação.
-4. Após criar um chamado, acompanhe seu status e receba atualizações sobre seu progresso.
-
-**Para a Equipe:**
-1. Faça login na plataforma usando suas credenciais de técnico.
-2. Na tela inicial, tenha acesso aos chamados disponíveis e atribuídos a você.
-3. Ao selecionar um chamado, atualize seu status conforme necessário e forneça assistência ao usuário.
-4. Monitore o tempo de resposta dos chamados e esteja atento a qualquer alerta sobre tempos de espera prolongados.
-
-### Exemplo de Dados
-
-Para simular o preenchimento de dados, utilize credenciais fictícias ao realizar login.
-
-### Autores 😊 🤝 💛💛💛
-
-Feito com muito empenho pelas participantes do Grupo 7:
-
-- Keila Arakaki
-- Anna Paula Marques
-- Juliana Rodrigues
-- Ana Rita Lopes
-- Andressa Rodrigues
-- Anna Karoline Nunes Miranda Guimaraes
-- Erica Akira Suguimoto Daikawa
-- Yasmin Aline Amaral dos Santos
-
-
-Programa ElasTech 2024 - Professor: Rafael Gomes
-
+🛠️ 🚀 💻 🖥️

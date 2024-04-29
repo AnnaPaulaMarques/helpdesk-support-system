@@ -1,13 +1,26 @@
 package com.soulcode.Projeto.Spring.HelpDesk.models;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@Entity
 @Data
 @AllArgsConstructor
-public class TecnicoModel extends PessoaModel {
+@NoArgsConstructor
+public class TecnicoModel {
 
-    public TecnicoModel(String nome, String senha, long idUsuario, String email) {
-        super(nome, senha, idUsuario, email);
-    }
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long idTecnico;
+    private String nome;
+    private String senha;
+    private String email;
+    private String setor;
+
+
 }

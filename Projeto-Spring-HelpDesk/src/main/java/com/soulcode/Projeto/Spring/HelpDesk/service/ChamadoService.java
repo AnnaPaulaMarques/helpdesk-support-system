@@ -2,6 +2,8 @@ package com.soulcode.Projeto.Spring.HelpDesk.service;
 
 
 import com.soulcode.Projeto.Spring.HelpDesk.models.ChamadoModel;
+import com.soulcode.Projeto.Spring.HelpDesk.repositories.ChamadoRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -11,40 +13,34 @@ import java.util.List;
 public class ChamadoService {
 
     private List<ChamadoModel> listaDeChamados = new ArrayList<>();
+    @Autowired
+    private ChamadoRepository chamadoRepository;
 
-    public void adicionarChamado(ChamadoModel chamado) {
-        listaDeChamados.add(chamado);
+    public ChamadoModel adicionarChamado(ChamadoModel chamado) {
+        return chamadoRepository.save(chamado);
     }
 
-    public ChamadoModel buscarChamado(Long idChamado) {
-        for (ChamadoModel chamado : listaDeChamados) {
-            if (chamado.getId().equals(idChamado)) {
-                return chamado;
-            }
-        }
-        return null;
+    public ChamadoModel buscarChamadoId(Long id) {
+        return chamadoRepository.getById(id);
     }
 
     public List<ChamadoModel> buscarChamadoTodos() {
-        return listaDeChamados;
+        return chamadoRepository.findAll();
     }
 
-    public void atualizarChamado(ChamadoModel chamadoAtualizado) {
-        ChamadoModel chamado = buscarChamado(chamadoAtualizado.getId());
-        if (chamado != null) {
-            chamado.setDescricao(chamadoAtualizado.getDescricao());
-            chamado.setPrioridade(chamadoAtualizado.getPrioridade());
-            chamado.setStatus(chamadoAtualizado.getStatus());
-        }
+    public ChamadoModel atualizarChamado(ChamadoModel chamado) {
+        return chamadoRepository.save(chamado);
     }
 
 
-    public void deletarChamado(Long idChamado) {
-        ChamadoModel chamado = buscarChamado(idChamado);
-        if (chamado != null) {
-            listaDeChamados.remove(chamado);
-        }
+    public String deletarChamado(Long id) {
+        chamadoRepository.deleteById(id);
+        return "Chamado Deletado" + id;
+
     }
+
+
+
 
 
 }

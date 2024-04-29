@@ -1,53 +1,43 @@
 package com.soulcode.Projeto.Spring.HelpDesk.service;
 
 import com.soulcode.Projeto.Spring.HelpDesk.models.TecnicoModel;
-import lombok.AllArgsConstructor;
-import lombok.Data;
+import com.soulcode.Projeto.Spring.HelpDesk.repositories.TecnicoRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
-@AllArgsConstructor
-@Data
 public class TecnicoService {
-    private final UsuarioService usuarioService;
+
+
     private static List<TecnicoModel> listaDeTecnicos = new ArrayList<>();
+    @Autowired
+    private TecnicoRepository tecnicoRepository;
 
 
-    public void adicionarTecnico(String nome, String senha, Long idUsuario, String email) {
-        TecnicoModel tecnico = new TecnicoModel(nome, senha, idUsuario, email);
-        listaDeTecnicos.add(tecnico);
+    public TecnicoModel adicionaTecnico(TecnicoModel tecnico) {
+        return tecnicoRepository.save(tecnico);
     }
 
 
-    public static List<TecnicoModel> buscarTecnicoTodos() {
-        return listaDeTecnicos;
+    public List<TecnicoModel> buscarTecnicoTodos() {
+        return tecnicoRepository.findAll();
     }
 
     public TecnicoModel buscarTecnico(Long idTecnico) {
-        for (TecnicoModel tecnico : listaDeTecnicos) {
-            if (tecnico.getIdUsuario().equals(idTecnico)) {
-                return tecnico;
-            }
-        }
-        return null;
+        return tecnicoRepository.getById(idTecnico);
     }
 
-    public void atualizarTecnico(Long idTecnico, String novoNome, String novaSenha, String novoEmail) {
-        TecnicoModel tecnico = buscarTecnico(idTecnico);
-        if (tecnico != null) {
-            tecnico.setNome(novoNome);
-            tecnico.setSenha(novaSenha);
-            tecnico.setEmail(novoEmail);
-        }
+    public TecnicoModel atualizarTecnico(TecnicoModel tecnico) {
+        return tecnicoRepository.save(tecnico);
     }
 
-    public void deletarTecnico(Long idTecnico) {
-        TecnicoModel tecnico = buscarTecnico(idTecnico);
-        if (tecnico != null) {
-            listaDeTecnicos.remove(tecnico);
-        }
+
+    public String deletarTecnico(Long idTecnico) {
+        tecnicoRepository.deleteById(idTecnico);
+        return "Tecnico Deletado" + idTecnico;
+
     }
 }
